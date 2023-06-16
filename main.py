@@ -71,7 +71,6 @@ nopais = ['World', 'Americas', 'South America', 'Asia',
 
 dfp = df[~df['country'].isin(nopais)]
 
-
 #-------------------------
 # Neteja de les dades
 #-------------------------
@@ -86,15 +85,15 @@ dfp.eq(0).sum()
 
 dfp_outliers = dfp[['country', 'area_harvested', 'production', 'yield', 'nitrogen', 'pesticides']]
 
-# Calculate the IQR for each column in the DataFrame
+# Calculem el IQR per cada columna
 Q1 = dfp_outliers.quantile(0.25)
 Q3 = dfp_outliers.quantile(0.75)
 IQR = Q3 - Q1
 
-# Find values outside the IQR range for each column
+# Trobem els valors que estan fora del rang interquartílic
 outliers = (dfp_outliers < (Q1 - 1.5 * IQR)) | (dfp_outliers > (Q3 + 1.5 * IQR))
 
-# Select rows containing outliers
+# Seleccionem els outliers
 outlier_rows = dfp_outliers[outliers.any(axis=1)]
 
 #-------------------------
@@ -208,7 +207,7 @@ sns.lineplot(data=dfp, x='year', y='pesticides')
 def vis_mapa(df):
     world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
 
-    dfp_2019 = dfp[dfp.year == 2019]
+    dfp_2019 = df[df.year == 2019]
 
     # Unim les dades amb el shapefile
     merged = world.merge(dfp_2019, left_on='name', right_on='country', how='left')
@@ -222,7 +221,7 @@ def vis_mapa(df):
 
     plt.show()
 
-vis_mapa(df)
+vis_mapa(dfp)
 
 # Relacions entre variables
 
