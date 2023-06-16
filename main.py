@@ -55,16 +55,13 @@ df = df_c.merge(df_f, on=['country', 'year']).merge(df_p, on=['country', 'year']
 
 # Eliminem no països
 
-nopais = ['World', 'Americas', 'South America', 'Asia',
- 'Northern America',
+nopais = ['World', 'Americas', 'South America', 'Asia', 'Northern America',
        'Net Food Importing Developing Countries', 'Europe',
        'European Union (28)', 'European Union (27)', 'Southern Europe',
        'Southern Asia', 'Africa', 'Low Income Food Deficit Countries',
        'Central America', 'Northern Africa',
-       'Eastern Asia', 'Western Asia',
-       'China, mainland', 'South-eastern Asia', 'Southern Africa',
-        'Least Developed Countries',
-        'Small Island Developing States',
+       'Eastern Asia', 'Western Asia', 'China, mainland', 'South-eastern Asia', 'Southern Africa',
+        'Least Developed Countries', 'Small Island Developing States',
        'Land Locked Developing Countries', 'Caribbean',
         'Western Africa', 'Oceania','Eastern Africa']
 
@@ -191,16 +188,16 @@ print(fixed_effects_model.summary())
 
 # Evolució area_harvested
 
-sns.lineplot(data=dfp, x='year', y='area_harvested')
+sns.lineplot(data=dfp, x='year', y='area_harvested').set_title("Evolució mundial de l'àrea")
 
 # Evolució productivitat
 
-sns.lineplot(data=dfp, x='year', y='yield')
+sns.lineplot(data=dfp, x='year', y='yield').set_title('Evolució mundial de la productivitat')
 
 # Evolució ús nitrogen i pesticides
 
-sns.lineplot(data=dfp, x='year', y='nitrogen')
-sns.lineplot(data=dfp, x='year', y='pesticides')
+sns.lineplot(data=dfp, x='year', y='nitrogen').set_title('Evolució mundial ús de nitrogen')
+sns.lineplot(data=dfp, x='year', y='pesticides').set_title('Evolució mundial ús de pesticides')
 
 # Visualització mapa
 
@@ -227,19 +224,19 @@ vis_mapa(dfp)
 
 # Cas Xina
 
-sns.regplot(x = "yield", y = "nitrogen", data = dfp_xina)
-sns.regplot(x = "yield", y = "pesticides", data = dfp_xina)
+sns.regplot(x = "yield", y = "nitrogen", data = dfp_xina).set_title('Xina')
+sns.regplot(x = "yield", y = "pesticides", data = dfp_xina).set_title('Xina')
 
 # Cas Espanya
 
 dfp_sp = dfp[dfp.country == 'Spain']
 
-sns.regplot(x = "yield", y = "nitrogen", data = dfp_sp)
-sns.regplot(x = "yield", y = "pesticides", data = dfp_sp)
+sns.regplot(x = "yield", y = "nitrogen", data = dfp_sp).set_title('Espanya')
+sns.regplot(x = "yield", y = "pesticides", data = dfp_sp).set_title('Espanya')
 
 # Cas Inida
 
 dfp_in = dfp[dfp.country == 'India']
 
-sns.regplot(x = "yield", y = "nitrogen", data = dfp_in)
-sns.regplot(x = "yield", y = "pesticides", data = dfp_in)
+sns.regplot(x = "yield", y = "nitrogen", data = dfp_in).set_title('India')
+sns.regplot(x = "yield", y = "pesticides", data = dfp_in).set_title('India')
