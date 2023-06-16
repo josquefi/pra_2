@@ -34,7 +34,7 @@ df_c = df_c.pivot(index=['Area', 'Item', 'Year'], columns=['Element'])
 df_c.reset_index(inplace=True)
 df_c.columns = ['country', 'crop', 'year', 'area_harvested', 'production', 'yield']
 
-# Com que les dades sobre producció tenem molt més detall del que necessitem fem un groupby i sumem
+# Com que les dades sobre producció tenen molt més detall del que necessitem fem un groupby i sumem
 df_c = df_c.groupby(['year', 'country']).sum().reset_index()
 
 df_f = df_f[['country_name_en', 'year', 'use_per_area_of_cropland_kg_ha']]
@@ -81,7 +81,6 @@ dfp.isnull().sum()
 
 #Zeros
 dfp.eq(0).sum()
-
 
 # Outliers
 
@@ -206,24 +205,24 @@ sns.lineplot(data=dfp, x='year', y='pesticides')
 
 # Visualització mapa
 
-# Load the country shapefile
-world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
+def vis_mapa(df):
+    world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
 
-dfp_2019 = dfp[dfp.year == 2019]
+    dfp_2019 = dfp[dfp.year == 2019]
 
-# Merge the data with the country shapefile
-merged = world.merge(dfp_2019, left_on='name', right_on='country', how='left')
+    # Unim les dades amb el shapefile
+    merged = world.merge(dfp_2019, left_on='name', right_on='country', how='left')
 
-# Plot the map
-fig, ax = plt.subplots(figsize=(10, 6))
-merged.plot(column='yield', cmap='coolwarm', linewidth=0.8, ax=ax, edgecolor='0.8', legend=True)
+    # Fem el plot del mapa
+    fig, ax = plt.subplots(figsize=(10, 6))
+    merged.plot(column='yield', cmap='coolwarm', linewidth=0.8, ax=ax, edgecolor='0.8', legend=True)
 
-# Set plot title
-plt.title('Productivitat')
+    # Indiquem el titol
+    plt.title('Productivitat')
 
-# Show the plot
-plt.show()
+    plt.show()
 
+vis_mapa(df)
 
 # Relacions entre variables
 
